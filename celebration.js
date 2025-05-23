@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Preload audio for better performance
     audio.preload = "auto"
   
+    // Set default volume
+    audio.volume = 0.5
+  
     const slides = [
       {
         image: "A.jpg",
@@ -160,12 +163,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // Create confetti effect when showing a new slide
       createConfettiEffect()
   
-      // Stop music if it's the last slide
+      // If it's the last slide, restart the music for the next loop
       if (index === slides.length - 1) {
         setTimeout(() => {
-          audio.pause() // Stop the music
-          audio.currentTime = 0 // Reset music to the beginning
-        }, 1000) // Wait for the slide transition to complete
+          // Instead of stopping, just restart from the beginning
+          audio.currentTime = 0
+        }, 1000)
       }
     }
   
@@ -429,6 +432,11 @@ document.addEventListener("DOMContentLoaded", () => {
           heartsInterval = setInterval(createHearts, 4000)
         }
         emojisInterval = setInterval(createAnimatedEmojis, isMobile ? 10000 : 6000)
+  
+        // Resume audio when page becomes visible again
+        if (audio.paused) {
+          audio.play().catch((error) => console.log("Audio play failed:", error))
+        }
       }
     })
   
@@ -638,64 +646,11 @@ document.addEventListener("DOMContentLoaded", () => {
       { once: true },
     )
   
-    // Initialize volume control
-    const volumeControl = document.getElementById("volumeControl")
-    volumeControl.addEventListener("input", function () {
-      audio.volume = this.value / 100
-  
-      // Update volume icon
-      const volumeIcon = document.getElementById("volumeIcon")
-      if (this.value == 0) {
-        volumeIcon.className = "fas fa-volume-mute"
-      } else if (this.value < 50) {
-        volumeIcon.className = "fas fa-volume-down"
-      } else {
-        volumeIcon.className = "fas fa-volume-up"
-      }
-    })
-  
-    // Initialize music selection
-    const musicSelector = document.getElementById("musicSelector")
-    musicSelector.addEventListener("change", function () {
-      const selectedMusic = this.value
-      audio.src = selectedMusic
-      audio.play().catch((error) => console.log("Audio play failed:", error))
-    })
-  
     // Initialize theme selection
     const themeSelector = document.getElementById("themeSelector")
     themeSelector.addEventListener("change", function () {
       document.body.className = ""
       document.body.classList.add(this.value)
-    })
-  
-    // Initialize text-to-speech
-    const speakButton = document.getElementById("speakBtn")
-    speakButton.addEventListener("click", () => {
-      const currentSlide = slides[currentSlideIndex]
-      let textToSpeak = ""
-  
-      if (currentSlide.text.includes("<")) {
-        // Extract text from HTML
-        const tempDiv = document.createElement("div")
-        tempDiv.innerHTML = currentSlide.text
-        textToSpeak = tempDiv.textContent
-      } else {
-        textToSpeak = currentSlide.text
-      }
-  
-      // Stop any current speech
-      window.speechSynthesis.cancel()
-  
-      // Create speech
-      const speech = new SpeechSynthesisUtterance(textToSpeak)
-      speech.lang = "en-US"
-      speech.volume = audio.volume // Match audio volume
-      speech.rate = 1
-      speech.pitch = 1
-  
-      // Speak
-      window.speechSynthesis.speak(speech)
     })
   
     // Initialize fullscreen toggle
@@ -751,11 +706,6 @@ document.addEventListener("DOMContentLoaded", () => {
           break
         case "p":
           document.getElementById("autoplayBtn").click()
-          break
-        case "m":
-          const vol = volumeControl.value > 0 ? 0 : 50
-          volumeControl.value = vol
-          audio.volume = vol / 100
           break
       }
     })
