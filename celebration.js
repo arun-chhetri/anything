@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   
     let currentSlideIndex = 0
-    let autoplayInterval = null
-    let isAutoPlaying = false
+    const autoplayInterval = null
+    const isAutoPlaying = false
   
     // Update progress bar
     function updateProgressBar() {
@@ -338,46 +338,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   
-    // Toggle autoplay
-    document.getElementById("autoplayBtn").addEventListener("click", function () {
-      if (isAutoPlaying) {
-        stopAutoplay()
-        this.innerHTML = '<i class="fas fa-play"></i>'
-        this.classList.remove("active")
-      } else {
-        startAutoplay()
-        this.innerHTML = '<i class="fas fa-pause"></i>'
-        this.classList.add("active")
-      }
-    })
+    // Remove the autoplay button event listener and functions
+    // Remove or comment out:
   
-    function startAutoplay() {
-      if (autoplayInterval) clearInterval(autoplayInterval)
-      autoplayInterval = setInterval(advanceSlide, 5000) // Change slide every 5 seconds
-      isAutoPlaying = true
-    }
+    // Remove the previous and next button event listeners
+    // Remove or comment out:
   
-    function stopAutoplay() {
-      if (autoplayInterval) {
-        clearInterval(autoplayInterval)
-        autoplayInterval = null
-      }
-      isAutoPlaying = false
-    }
+    // Remove the theme selector event listener
+    // Remove or comment out:
   
-    // Previous slide button
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length
-      showSlide(currentSlideIndex)
-      updateProgressBar()
-    })
+    // Remove the fullscreen button event listener
+    // Remove or comment out:
   
-    // Next slide button
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      currentSlideIndex = (currentSlideIndex + 1) % slides.length
-      showSlide(currentSlideIndex)
-      updateProgressBar()
-    })
+    // Remove the share button event listener
+    // Remove or comment out:
   
     // Optimize animations for mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
@@ -412,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (flowersInterval) clearInterval(flowersInterval)
         if (heartsInterval) clearInterval(heartsInterval)
         clearInterval(emojisInterval)
-        stopAutoplay()
+        //stopAutoplay()
   
         // Pause audio when page is hidden
         audio.pause()
@@ -646,50 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { once: true },
     )
   
-    // Initialize theme selection
-    const themeSelector = document.getElementById("themeSelector")
-    themeSelector.addEventListener("change", function () {
-      document.body.className = ""
-      document.body.classList.add(this.value)
-    })
-  
-    // Initialize fullscreen toggle
-    const fullscreenBtn = document.getElementById("fullscreenBtn")
-    fullscreenBtn.addEventListener("click", function () {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch((err) => {
-          console.log(`Error attempting to enable fullscreen: ${err.message}`)
-        })
-        this.innerHTML = '<i class="fas fa-compress"></i>'
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
-          this.innerHTML = '<i class="fas fa-expand"></i>'
-        }
-      }
-    })
-  
-    // Initialize share functionality
-    const shareBtn = document.getElementById("shareBtn")
-    if (navigator.share) {
-      shareBtn.style.display = "block"
-      shareBtn.addEventListener("click", async () => {
-        try {
-          await navigator.share({
-            title: "Happy Birthday!",
-            text: "Check out this special birthday message I made for you!",
-            url: window.location.href,
-          })
-          console.log("Content shared successfully")
-        } catch (err) {
-          console.log("Error sharing: ", err)
-        }
-      })
-    } else {
-      shareBtn.style.display = "none"
-    }
-  
-    // Initialize keyboard controls
+    // Initialize keyboard controls - keep only navigation
     document.addEventListener("keydown", (e) => {
       switch (e.key) {
         case "ArrowRight":
@@ -700,12 +631,6 @@ document.addEventListener("DOMContentLoaded", () => {
           currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length
           showSlide(currentSlideIndex)
           updateProgressBar()
-          break
-        case "f":
-          fullscreenBtn.click()
-          break
-        case "p":
-          document.getElementById("autoplayBtn").click()
           break
       }
     })
