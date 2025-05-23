@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add viewport meta tag with additional parameters for iOS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Birthday Celebration</title>
+    <link rel="stylesheet" href="celebration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="stars"></div>
+    <div id="flowers-container"></div>
+    <div id="emojis-container"></div>
+    <div id="hearts-container"></div>
+    
+    <div id="presentationView" class="presentation-view"></div>
+    
+    <audio id="backgroundMusic" loop>
+        <source src="birthday-music.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div class="back-button">
+        <a href="index.html" class="btn-back">Go Back</a>
+    </div>
+
+    <script src="celebration.js"></script>
+</body>
+</html>
