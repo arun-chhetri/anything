@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Navigate after a short delay to show the button animation
       setTimeout(() => {
+        // Store a flag that user clicked the button (for music autoplay)
+        sessionStorage.setItem("userInteracted", "true")
         window.location.href = "celebration.html"
       }, 300)
     }

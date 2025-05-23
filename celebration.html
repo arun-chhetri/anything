@@ -9,17 +9,75 @@
     <title>Birthday Celebration</title>
     <link rel="stylesheet" href="celebration.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Add this meta tag in the head section to help with audio autoplay -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
     <div id="stars"></div>
     <div id="flowers-container"></div>
     <div id="emojis-container"></div>
     <div id="hearts-container"></div>
+    <div id="confetti-container"></div>
     
     <div id="presentationView" class="presentation-view"></div>
     
-    <audio id="backgroundMusic" loop>
+    <div class="progress-container">
+        <div id="progressFill" class="progress-fill"></div>
+    </div>
+    
+    <div class="slide-counter" id="slideCounter">1/18</div>
+    
+    <div class="controls">
+        <button id="prevBtn" class="control-btn" title="Previous Slide">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="autoplayBtn" class="control-btn" title="Autoplay">
+            <i class="fas fa-play"></i>
+        </button>
+        <button id="nextBtn" class="control-btn" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="volume-container">
+            <i id="volumeIcon" class="fas fa-volume-up"></i>
+            <input type="range" id="volumeControl" class="volume-slider" min="0" max="100" value="50">
+        </div>
+        <button id="speakBtn" class="control-btn" title="Read Aloud">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="settingsBtn" class="control-btn" title="Settings">
+            <i class="fas fa-cog"></i>
+        </button>
+        <button id="fullscreenBtn" class="control-btn" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+        <button id="shareBtn" class="control-btn" title="Share">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+    
+    <div id="settingsPanel" class="settings-panel">
+        <label for="themeSelector">Theme:</label>
+        <select id="themeSelector">
+            <option value="default">Default</option>
+            <option value="romantic">Romantic</option>
+            <option value="elegant">Elegant</option>
+            <option value="playful">Playful</option>
+            <option value="dreamy">Dreamy</option>
+        </select>
+        
+        <label for="musicSelector">Music:</label>
+        <select id="musicSelector">
+            <option value="birthday-music.mp3">Happy Birthday</option>
+            <option value="romantic-music.mp3">Romantic</option>
+            <option value="piano-music.mp3">Piano</option>
+            <option value="upbeat-music.mp3">Upbeat</option>
+        </select>
+    </div>
+    
+    <!-- Update the audio element to include more sources and autoplay attribute -->
+    <audio id="backgroundMusic" loop autoplay preload="auto">
         <source src="birthday-music.mp3" type="audio/mp3">
+        <source src="birthday-music.ogg" type="audio/ogg">
         Your browser does not support the audio element.
     </audio>
     
