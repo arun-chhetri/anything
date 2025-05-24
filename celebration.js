@@ -98,28 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         image: "J.jpg",
         text: "Happy Birthday, my beautiful 😘You're officially a year older, but don't worry—I'm already old, so now we look like the perfect couple 🎈🎁",
       },
-      {
-        image: "K.jpg",
-        text: "Happy Birthday, my love 😘 As you grow older, you somehow look even more beautiful. Want to know a secret? One day, I might get old, but in my eyes, you'll always be 18 🎈🎁",
-      },
-      { image: "L.jpg", text: "You're not just a year older, but a year more wonderful. Happy birthday! 🎊🥳" },
-      {
-        image: "M.jpg",
-        text: "Your birthday is here, yet I can't hold your hand or look into your eyes to say 'Happy Birthday.' Even though we're apart, my heart beats only for you. Today, I celebrate you by loving you even more from afar.",
-      },
-      {
-        image: "N.jpg",
-        text: "No matter how far I am, my love 💖 is always right beside you. My biggest wish on your birthday is to hold your hand and celebrate together, and I know that day will come soon 💖",
-      },
-      {
-        image: "I.jpg",
-        text: "Happy Birthday 😘, my sexy beauty! You shine like the moon and burn like fire—you drive me crazy.",
-      },
-      { image: "P.jpg", text: "Wishing you a day filled with joy, laughter, and unforgettable moments. 🎈🎁" },
-      {
-        image: "Q.jpg",
-        text: "Today is your birthday 💖, but for me, it's both the happiest and the saddest day—happy because this day gave the world someone as precious as you, and sad because I can't be there to celebrate it with you 🎈🎁",
-      },
+
       {
         text: `
           <div class="love-letter">
