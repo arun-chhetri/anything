@@ -61,57 +61,60 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.volume = 0.5
   
     const slides = [
-      {
-        image: "A.jpg",
-        text: "Today is special because it's the day the world was blessed with the person who owns my heart! Happy Birthday, my love. 🌟",
-      },
-      { image: "B.jpg", text: "Happy birthday, my love! 💖 Your smile lights up my world every day. 🌟" },
-      {
-        image: "C.jpg",
-        text: "With every passing year,💖 your beauty, wisdom, and love grow even more. I'm so blessed to have you in my life. 🌟",
-      },
-      {
-        image: "D.jpg",
-        text: "This day feels incomplete without you 💖, but my love is always whole. On your birthday, I wish all your dreams come true and that we reunite soon. 🌟",
-      },
-      {
-        image: "E.jpg",
-        text: "Happy Birthday, my love! Even though we're far apart, my heart 💖is always with you. Your smile and happiness are the greatest gifts to me. 🌟",
-      },
-      {
-        image: "F.jpg",
-        text: "The biggest gift I have for you on your birthday is my love, which no distance can ever diminish 🌟",
-      },
-      {
-        image: "O.jpg",
-        text: "Wherever you go, my love 😘 is always with you. The day you smile while looking into my eyes will always be my happiest day. Happy Birthday, my love. 🎈🎁",
-      },
-      {
-        image: "H.jpg",
-        text: "you are the sweetest song😘, the most beautiful poem, and the dearest dream of my life. Today is your birthday, but for me, you are special every single day. 🎈🎁",
-      },
-      {
-        image: "G.jpg",
-        text: "You are like the moon—no matter how far😘 , my eyes are always searching for you. May your smile shine as brightly as the moon tonight! Happy Birthday, my love. 🎈🎁",
-      },
-      {
-        image: "J.jpg",
-        text: "Happy Birthday, my beautiful 😘You're officially a year older, but don't worry—I'm already old, so now we look like the perfect couple 🎈🎁",
-      },
-
-      {
-        text: `
-          <div class="love-letter">
-            <div class="letter-title">My Dearest Rajani babe,</div>
-            <div class="letter-paragraph">On this special day, I want to pour my heart out to you. <span class="heart-text">💖</span> From the moment you entered my life, everything became brighter, more colorful, and filled with joy. <span class="highlight">🌈✨</span></div>
-            <div class="letter-paragraph">Your love is the greatest gift I could ever ask for. Your smile warms my heart, your laughter is my favorite melody, and your presence makes every day feel like a celebration. <span class="highlight">🎉🥰</span></div>
-            <div class="letter-paragraph">As you blow out the candles on your cake today, know that my wish is for all of your dreams to come true. You deserve the world, and I promise to be by your side, supporting you, loving you, and cherishing every moment we share. <span class="highlight">🎂💫</span></div>
-            <div class="letter-paragraph">Happy Birthday, my love. Here's to another year of adventures, laughter, and endless love. <span class="highlight">🥂💑</span></div>
-            <div class="letter-signature">Forever yours,<br>Arun Kunwar <span class="heart-text">❤️</span></div>
-          </div>
-        `,
-      },
-    ]
+        {
+          image: "A.jpg",
+          text: "Happy Birthday to my sister who's like WiFi—sometimes strong, mostly annoying, and completely necessary. 📶🎉",
+        },
+        {
+          image: "B.jpg",
+          text: "Congrats on surviving another year of being my sister. Truly heroic stuff. 💪🎂",
+        },
+        {
+          image: "C.jpg",
+          text: "You’re the only person I can insult daily and still love unconditionally. That’s talent. 😎💖",
+        },
+        {
+          image: "D.jpg",
+          text: "Remember when you were young, cute, and innocent? Yeah, me neither. 😂🎈",
+        },
+        {
+          image: "E.jpg",
+          text: "Your age is just a number… a really high one now. Welcome to the 'getting old' club! 🎉👵",
+        },
+        {
+          image: "F.jpg",
+          text: "You’re the reason I believe patience is a virtue. And therapy is important. 🤯❤️",
+        },
+        {
+          image: "G.jpg",
+          text: "May your day be as fabulous as your ability to annoy me 24/7. 🎁😤",
+        },
+        {
+          image: "H.jpg",
+          text: "To my sister: proof that I can survive extreme levels of madness. 🧠🎊",
+        },
+        {
+          image: "I.jpg",
+          text: "You might be older today, but don’t worry—you’ll always be younger than your maturity level. 😜🎂",
+        },
+        {
+          image: "J.jpg",
+          text: "Wishing you a birthday as unforgettable as that weird phase you had in 2017. 🕺💃",
+        },
+        {
+          text: `
+            <div class="love-letter">
+              <div class="letter-title">Dear Trouble Magnet,</div>
+              <div class="letter-paragraph">On your birthday, I just wanted to say thanks... for always giving me material to roast you. 🎉🔥</div>
+              <div class="letter-paragraph">You're weird, dramatic, and probably the reason for 50% of my stress—but also 100% of my laughter. 😂❤️</div>
+              <div class="letter-paragraph">I hope today brings you cake, fun, and maybe a little bit of self-awareness (but no pressure). 🎂😉</div>
+              <div class="letter-paragraph">You're the best sister I've never met—mostly because I haven't had to hear your sass in real life yet. Let’s keep it that way. 🤣</div>
+              <div class="letter-signature">Your favorite (and clearly superior) sibling,<br>Arun Kunwar 😎🔥</div>
+            </div>
+          `,
+        },
+      ];
+      
   
     let currentSlideIndex = 0
     const autoplayInterval = null
@@ -415,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     function createFloatingElements() {
       const container = document.body
-      const emojis = ["❤️", "🎂", "🎁", "🎈", "🎉", "🥳", "💖", "✨", "🌟", "😘", "🤗", "💕", "💓", "💞"]
+      const emojis = ["❤️", "🎂", "🎁", "🎈", "🎉", "🥳", "💖", "✨", "🌟", "🤗", "💕", "💓", "💞"]
   
       // Fewer elements on mobile
       const numberOfElements = isMobile ? 3 : Math.min(10, Math.floor(window.innerWidth / 100))
@@ -513,7 +516,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "💖",
         "✨",
         "🌟",
-        "😘",
         "🤗",
         "💕",
         "💓",
