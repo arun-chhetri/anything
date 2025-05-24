@@ -62,63 +62,63 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const slides = [
         {
-          image: "A.jpg",
-          text: "Happy Birthday to my sister who's like WiFi—sometimes strong, mostly annoying, and completely necessary. 📶🎉",
-        },
-        {
-          image: "B.jpg",
-          text: "Congrats on surviving another year of being my sister. Truly heroic stuff. 💪🎂",
-        },
-        {
-          image: "C.jpg",
-          text: "You’re the only person I can insult daily and still love unconditionally. That’s talent. 😎💖",
-        },
-        {
-          image: "D.jpg",
-          text: "Remember when you were young, cute, and innocent? Yeah, me neither. 😂🎈",
-        },
-        {
-          image: "E.jpg",
-          text: "Your age is just a number… a really high one now. Welcome to the 'getting old' club! 🎉👵",
-        },
-        {
-          image: "F.jpg",
-          text: "You’re the reason I believe patience is a virtue. And therapy is important. 🤯❤️",
-        },
-        {
-          image: "G.jpg",
-          text: "May your day be as fabulous as your ability to annoy me 24/7. 🎁😤",
-        },
-        {
-          image: "H.jpg",
-          text: "To my sister: proof that I can survive extreme levels of madness. 🧠🎊",
-        },
-        {
-          image: "I.jpg",
-          text: "You might be older today, but don’t worry—you’ll always be younger than your maturity level. 😜🎂",
-        },
-        {
-          image: "J.jpg",
-          text: "Wishing you a birthday as unforgettable as that weird phase you had in 2017. 🕺💃",
-        },
-        {
-          text: `
-            <div class="love-letter">
-              <div class="letter-title">Dear Trouble Magnet,</div>
-              <div class="letter-paragraph">On your birthday, I just wanted to say thanks... for always giving me material to roast you. 🎉🔥</div>
-              <div class="letter-paragraph">You're weird, dramatic, and probably the reason for 50% of my stress—but also 100% of my laughter. 😂❤️</div>
-              <div class="letter-paragraph">I hope today brings you cake, fun, and maybe a little bit of self-awareness (but no pressure). 🎂😉</div>
-              <div class="letter-paragraph">You're the best sister I've never met—mostly because I haven't had to hear your sass in real life yet. Let’s keep it that way. 🤣</div>
-              <div class="letter-signature">Your favorite (and clearly superior) sibling,<br>Arun Kunwar 😎🔥</div>
-            </div>
-          `,
-        },
-      ];
-      
+            image: "A.jpg",
+            text: "Happy Birthday to my sister who's like WiFi—sometimes strong, mostly annoying, and completely necessary. 📶🎉",
+          },
+          {
+            image: "B.jpg",
+            text: "Congrats on surviving another year of being my sister. Truly heroic stuff. 💪🎂",
+          },
+          {
+            image: "C.jpg",
+            text: "You’re the only person I can insult daily and still love unconditionally. That’s talent. 😎💖",
+          },
+          {
+            image: "D.jpg",
+            text: "Remember when you were young, cute, and innocent? Yeah, me neither. 😂🎈",
+          },
+          {
+            image: "E.jpg",
+            text: "Your age is just a number… a really high one now. Welcome to the 'getting old' club! 🎉👵",
+          },
+          {
+            image: "F.jpg",
+            text: "You’re the reason I believe patience is a virtue. And therapy is important. 🤯❤️",
+          },
+          {
+            image: "G.jpg",
+            text: "May your day be as fabulous as your ability to annoy me 24/7. 🎁😤",
+          },
+          {
+            image: "H.jpg",
+            text: "To my sister: proof that I can survive extreme levels of madness. 🧠🎊",
+          },
+          {
+            image: "I.jpg",
+            text: "You might be older today, but don’t worry—you’ll always be younger than your maturity level. 😜🎂",
+          },
+          {
+            image: "J.jpg",
+            text: "Wishing you a birthday as unforgettable as that weird phase you had in 2017. 🕺💃",
+          },
+          {
+            text: `
+              <div class="love-letter">
+                <div class="letter-title">Dear Trouble Magnet,</div>
+                <div class="letter-paragraph">On your birthday, I just wanted to say thanks... for always giving me material to roast you. 🎉🔥</div>
+                <div class="letter-paragraph">You're weird, dramatic, and probably the reason for 50% of my stress—but also 100% of my laughter. 😂❤️</div>
+                <div class="letter-paragraph">I hope today brings you cake, fun, and maybe a little bit of self-awareness (but no pressure). 🎂😉</div>
+                <div class="letter-paragraph">You're the best sister I've never met—mostly because I haven't had to hear your sass in real life yet. Let’s keep it that way. 🤣</div>
+                <div class="letter-signature">Your favorite (and clearly superior) ,<br>Arun Kunwar 😎🔥</div>
+              </div>
+            `,
+          },
+        ];
   
     let currentSlideIndex = 0
     const autoplayInterval = null
     const isAutoPlaying = false
+    let autoSlideTimer = null
   
     // Update progress bar
     function updateProgressBar() {
@@ -127,9 +127,27 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("slideCounter").textContent = `${currentSlideIndex + 1}/${slides.length}`
     }
   
+    function startAutoSlideshow() {
+      // Clear any existing timer
+      if (autoSlideTimer) {
+        clearInterval(autoSlideTimer)
+      }
+  
+      // Start new timer to advance slides every 10 seconds
+      autoSlideTimer = setInterval(() => {
+        advanceSlide()
+      }, 10000) // 10 seconds
+    }
+  
+    function resetAutoSlideTimer() {
+      // Reset the timer when user manually advances
+      startAutoSlideshow()
+    }
+  
     // Start presentation immediately
     showSlide(currentSlideIndex)
     updateProgressBar()
+    startAutoSlideshow()
   
     function showSlide(index) {
       presentationView.innerHTML = ""
@@ -314,6 +332,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update progress bar
       updateProgressBar()
   
+      // Reset the auto timer when user manually advances
+      resetAutoSlideTimer()
+  
       // Try to play audio if it was paused
       if (audio.paused) {
         audio.play().catch((error) => console.log("Audio play failed:", error))
@@ -372,6 +393,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // Pause audio when page is hidden
         audio.pause()
+  
+        // Stop auto slideshow when page is hidden
+        if (autoSlideTimer) {
+          clearInterval(autoSlideTimer)
+        }
       } else {
         // Resume intervals when page is visible again
         createFloatingElements()
@@ -393,6 +419,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (audio.paused) {
           audio.play().catch((error) => console.log("Audio play failed:", error))
         }
+  
+        // Resume auto slideshow when page becomes visible
+        startAutoSlideshow()
       }
     })
   
@@ -418,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     function createFloatingElements() {
       const container = document.body
-      const emojis = ["❤️", "🎂", "🎁", "🎈", "🎉", "🥳", "💖", "✨", "🌟", "🤗", "💕", "💓", "💞"]
+      const emojis = ["❤️", "🎂", "🎁", "🎈", "🎉", "🥳", "💖", "✨", "🌟", "😘", "🤗", "💕", "💓", "💞"]
   
       // Fewer elements on mobile
       const numberOfElements = isMobile ? 3 : Math.min(10, Math.floor(window.innerWidth / 100))
@@ -516,6 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "💖",
         "✨",
         "🌟",
+        "😘",
         "🤗",
         "💕",
         "💓",

@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     // Date display animation
-    const datetxt = "5 April 2024"
+    const datetxt = "2082 jestha 12"
     const charArrDate = datetxt.split("")
     let currentIndex = 0
   
