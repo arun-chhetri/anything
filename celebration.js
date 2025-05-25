@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           {
             image: "J.jpg",
-            text: "Wishing you a birthday as unforgettable as that weird phase you had in 2017. 🕺💃",
+            text: "Wishing you a birthday as unforgettable as that weird phase you had in 2025. 🕺💃",
           },
           {
             text: `
