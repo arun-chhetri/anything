@@ -8,9 +8,58 @@
     <meta name="theme-color" content="#feecea">
     <title>Happy Birthday!</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="countdown.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+     <div id="countdown-container" class="countdown-container">
+        <div class="countdown-background">
+            <div class="stars-bg"></div>
+            <div class="floating-hearts"></div>
+        </div>
+        
+        <div class="countdown-content">
+            <div class="countdown-header">
+                <h1 class="countdown-title">🎂 Birthday Surprise Coming Soon! 🎂</h1>
+                <p class="countdown-subtitle">Something special is being prepared for you...</p>
+            </div>
+            
+            <div class="countdown-timer-container">
+                <div class="countdown-timer" id="countdown-timer">
+                    <div class="time-unit">
+                        <div class="time-number" id="days">000</div>
+                        <div class="time-label">Days</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-number" id="hours">00</div>
+                        <div class="time-label">Hours</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-number" id="minutes">00</div>
+                        <div class="time-label">Minutes</div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-number" id="seconds">00</div>
+                        <div class="time-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="countdown-message">
+                <p class="target-date">🗓️ Opening on: <strong>May 26, 2025 at 12:00 AM</strong></p>
+                <p class="patience-message">✨ Good things come to those who wait! ✨</p>
+            </div>
+            
+            <div class="countdown-decorations">
+                <div class="gift-box">🎁</div>
+                <div class="birthday-cake">🎂</div>
+                <div class="balloons">🎈🎈🎈</div>
+            </div>
+        </div>
+    </div>
     <div id="wrapper">
         <div class="flag__birthday">
             <img src="1.png?height=350&width=350" alt="" width="350" class="flag__left">
@@ -109,5 +158,6 @@
     </audio>
 
     <script src="script.js"></script>
+    <script src="countdown.js"></script>
 </body>
 </html>

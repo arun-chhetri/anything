@@ -4,41 +4,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // Single background music element for index page
   const audio = document.getElementById("backgroundMusic")
 
-  // Try to play audio with multiple strategies
+  // Try to play audio automatically without user interaction
   const playAudio = async () => {
     try {
       // Set volume to a comfortable level
       audio.volume = 0.3
       // Try to play using the Promise-based API
       await audio.play()
-      console.log("Happy Birthday audio playing successfully on index page")
+      console.log("Happy Birthday audio playing automatically on index page")
     } catch (error) {
-      console.log("Autoplay prevented on index page:", error)
-      // Don't show any prompt, just wait for user interaction
+      console.log("Autoplay blocked:", error)
+      // Try again after a short delay
+      setTimeout(() => {
+        audio.play().catch(() => console.log("Second attempt failed"))
+      }, 500)
     }
   }
 
-  // Try to play audio immediately
-  setTimeout(() => {
-    playAudio()
-  }, 1000) // Small delay to ensure page is fully loaded
+  // Start playing immediately when page loads
+  playAudio()
 
-  // Try to play on any user interaction with the page
-  const tryPlayOnInteraction = () => {
-    if (audio.paused) {
-      audio.play().catch((err) => console.log("Play attempt failed:", err))
-    }
-    // Remove the event listeners after first interaction
-    document.removeEventListener("click", tryPlayOnInteraction)
-    document.removeEventListener("touchstart", tryPlayOnInteraction)
-    document.removeEventListener("keydown", tryPlayOnInteraction)
-  }
-
-  document.addEventListener("click", tryPlayOnInteraction)
-  document.addEventListener("touchstart", tryPlayOnInteraction)
-  document.addEventListener("keydown", tryPlayOnInteraction)
-
-  // Also try to play when document becomes visible if it was loaded in background
+  // Also try when document becomes visible
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden && audio.paused) {
       playAudio()
@@ -109,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Date display animation
-  const datetxt = "2082 Jestha 12 "
+  const datetxt = "26 May 2025"
   const charArrDate = datetxt.split("")
   let currentIndex = 0
 
