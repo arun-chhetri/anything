@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Countdown script loaded")
 
   // Target date: May 26, 2025 at 12:00 AM (midnight)
-  const targetDate = new Date("2025-05-25T23:48:00").getTime()
+  const targetDate = new Date("2025-05-26T00:00:00").getTime()
 
   // Get countdown elements
   const countdownContainer = document.getElementById("countdown-container")
