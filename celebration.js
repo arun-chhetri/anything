@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Start new timer to advance slides every 10 seconds
       autoSlideTimer = setInterval(() => {
         advanceSlide()
-      }, 10000) // 10 seconds
+      }, 7000) // 10 seconds
     }
   
     function resetAutoSlideTimer() {

@@ -1177,3 +1177,11 @@ img {
     background-size: 60px 60px;
   }
 }
+
+/* Button pressed state */
+#btn__letter.pressed {
+  transform: scale(0.9);
+  background-color: var(--color-heart);
+  border-color: var(--color-heart);
+  color: #fff;
+}

@@ -1,13 +1,9 @@
-/* Remove the fancy font imports and replace with standard fonts */
-/* @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+/* Keep the fancy font imports for the love letter */
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
 
-/* Import simple, readable fonts */
+/* Import simple, readable fonts for regular content */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
@@ -65,7 +61,7 @@ img {
   --primary-font: "Inter", "Arial", sans-serif;
   --secondary-font: "Roboto", "Helvetica", sans-serif;
   --title-font: "Inter", "Arial", sans-serif;
-  --fancy-font: "Roboto", "Helvetica", sans-serif;
+  --fancy-font: "Great Vibes", cursive;
   --playful-font: "Inter", "Arial", sans-serif;
   --elegant-font: "Roboto", "Helvetica", sans-serif;
 
@@ -329,8 +325,9 @@ body {
   animation: fadeIn 1s 0.5s forwards;
 }
 
+/* Love Letter - Keep fancy fonts for the last page */
 .love-letter {
-  font-family: var(--secondary-font);
+  font-family: "Dancing Script", cursive;
   font-size: 1.4rem;
   line-height: 1.8;
   color: #333;
@@ -338,8 +335,8 @@ body {
 }
 
 .love-letter .letter-title {
-  font-family: var(--title-font);
-  font-size: 1.8rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 2.2rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: var(--theme-accent);
@@ -360,6 +357,7 @@ body {
   margin-bottom: 1rem;
   animation: fadeInUp 1s ease-out;
   animation-fill-mode: both;
+  font-family: "Dancing Script", cursive;
 }
 
 .love-letter .letter-paragraph:nth-child(2) {
@@ -390,8 +388,8 @@ body {
 }
 
 .love-letter .letter-signature {
-  font-family: var(--fancy-font);
-  font-size: 1.6rem;
+  font-family: "Sacramento", cursive;
+  font-size: 1.8rem;
   font-weight: bold;
   margin-top: 1.5rem;
   text-align: right;
