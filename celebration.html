@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Add viewport meta tag with additional parameters for iOS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Birthday Celebration</title>
+    <title>For You — Always</title>
+
+    <!-- Font preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="stylesheet" href="celebration.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Add this meta tag in the head section to help with audio autoplay -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
+
 <body>
+
+    <!-- Ambient depth layers -->
     <div id="stars"></div>
     <div id="flowers-container"></div>
     <div id="emojis-container"></div>
     <div id="hearts-container"></div>
     <div id="confetti-container"></div>
-    
+
+    <!-- Main slideshow -->
     <div id="presentationView" class="presentation-view"></div>
-    
+
+    <!-- Progress bar -->
     <div class="progress-container">
         <div id="progressFill" class="progress-fill"></div>
     </div>
-    
-    <div class="slide-counter" id="slideCounter">1/18</div>
-    
-    <!-- Different Celebration Music for Celebration Page -->
+
+    <!-- Slide counter -->
+    <div class="slide-counter" id="slideCounter">1/11</div>
+
+    <!-- Music -->
     <audio id="backgroundMusic" loop autoplay preload="auto">
         <source src="O.mp3" type="audio/mp3">
         <source src="O.ogg" type="audio/ogg">
-        Your browser does not support the audio element.
     </audio>
-    
+
+    <!-- Back button -->
     <div class="back-button">
-        <a href="index.html" class="btn-back">Go Back</a>
+        <a href="index.html" class="btn-back">← Go Back</a>
     </div>
 
     <script src="celebration.js"></script>
 </body>
+
 </html>
