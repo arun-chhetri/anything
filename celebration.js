@@ -58,55 +58,55 @@ document.addEventListener("DOMContentLoaded", () => {
   audio.preload = "auto"
 
   // Set default volume
-  audio.volume = 0.5
+  audio.volume = 1
 
   const slides = [
     {
       image: "A.jpg",
-      text: "Happy Birthday... even if we're miles apart, your smile still lives in my heart. 🎉💔",
+      text: "Happy Birthday! new year new age new mindset— keep shining. 🎉❤️",
     },
     {
       image: "B.jpg",
-      text: "Another year without you feels like a chapter I never wanted to write. Still, I hope it's beautiful for you. 🎂🔍",
+      text: "Another year of you — and you only get better. I hope today is as beautiful as you are. 🎂✨",
     },
     {
       image: "C.jpg",
-      text: "I still reach for my phone to tell you something funny... then remember things aren't the same anymore. ��",
+      text: "You are someone I always want to share my little moments with. That never changes. ❤️",
     },
     {
       image: "D.jpg",
-      text: "I remember how your laugh sounded. Funny how the smallest memories are the hardest to let go of. 🎈😭",
+      text: "Your laugh is one of the best sounds I know. I hope you laughed a lot today. 🎈�",
     },
     {
       image: "E.jpg",
-      text: "Time keeps moving. So do we. But on your birthday, time stops just long enough for me to miss you. ⏳�",
+      text: "Time passes, but the warmth I feel for you stays the same. Happy Birthday. ⏳💖",
     },
     {
       image: "F.jpg",
-      text: "I kept every little thing — our photos, our words, our late-night conversations. They still feel warm. 💫❤️",
+      text: "Every little memory with you is something I hold close. You mean more than words can say. 💫❤️",
     },
     {
       image: "G.jpg",
-      text: "We grew apart, but what we shared never really leaves. Some things just stay with you forever. ��",
+      text: "No matter where life takes us, you will always have a special place in my heart. 💙",
     },
     {
       image: "H.jpg",
-      text: "To you, wherever you are: I hope you're happy. You deserve that — even if it's without me. 🧠🎊",
+      text: "Don't think we are far or our relationship is finished. You will always be in my heart, in my dreams too. 🧠🎊",
     },
     {
       image: "I.jpg",
-      text: "You'll always be older than our memories, but they never age. They stay exactly as beautiful as they were. �🎂",
+      text: "You deserve all the good things life has to offer — today and every day. ❤️🎂",
     },
     {
       image: "J.jpg",
-      text: "Wishing you a birthday filled with the warmth you once gave me so effortlessly. ✨",
+      text: "Be happy like in this photo — always. ✨",
     },
     {
       text: `
               <div class="love-letter">
                 <div class="letter-title">Dear You,</div>
                  <div class="letter-paragraph">I wasn't sure if I'd write this. But here I am, on your birthday, thinking of you like I always do. 🎉�</div>
-                 <div class="letter-paragraph">We're not what we used to be. And that still hurts in ways I can't always explain. �❤️</div>
+                 <div class="letter-paragraph">We're not what we used to be. And that still hurts in ways I can't always explain. ❤️❤️</div>
                  <div class="letter-paragraph">But today isn't about the distance. It's about all those moments that made us — that I still carry with me. 🎂✨</div>
                  <div class="letter-paragraph">Wherever you are, whoever you're becoming — I hope the world is gentle with you. You deserve every bit of joy. 💙</div>
                  <div class="letter-signature">Still yours in memory,<br>Arun Kunwar ��</div>

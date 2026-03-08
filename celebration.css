@@ -232,6 +232,9 @@ body::after {
 .message-frame {
   position: relative;
   max-width: 82%;
+  max-height: 70vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1.4rem 1.8rem;
   border-radius: 20px;
 
@@ -715,14 +718,26 @@ body::after {
     font-size: 1.08rem;
     padding: 1.1rem 1.3rem;
     max-width: 91%;
+    max-height: 65vh;
   }
 
   .love-letter {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
   }
 
   .love-letter .letter-title {
-    font-size: 2rem;
+    font-size: 1.9rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .love-letter .letter-paragraph {
+    margin-bottom: 0.7rem;
+  }
+
+  .love-letter .letter-signature {
+    font-size: 1.6rem;
+    margin-top: 1rem;
   }
 }
 
@@ -735,19 +750,30 @@ screen and (max-height: 568px) {
   }
 
   .message-frame {
-    font-size: 0.92rem;
-    padding: 0.85rem 1rem;
-    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    padding: 0.75rem 0.9rem;
+    margin-top: 0.5rem;
     max-width: 95%;
+    max-height: 60vh;
   }
 
   .love-letter {
-    font-size: 0.9rem;
-    line-height: 1.55;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 
   .love-letter .letter-title {
-    font-size: 1.7rem;
+    font-size: 1.45rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .love-letter .letter-paragraph {
+    margin-bottom: 0.55rem;
+  }
+
+  .love-letter .letter-signature {
+    font-size: 1.3rem;
+    margin-top: 0.8rem;
   }
 
   .btn-back {
@@ -764,13 +790,29 @@ screen and (max-height: 568px) {
   }
 
   .message-frame {
-    font-size: 1rem;
-    padding: 0.9rem 1.1rem;
-    max-width: 92%;
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    max-width: 93%;
+    max-height: 62vh;
   }
 
   .love-letter {
-    font-size: 1rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .love-letter .letter-title {
+    font-size: 1.65rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .love-letter .letter-paragraph {
+    margin-bottom: 0.6rem;
+  }
+
+  .love-letter .letter-signature {
+    font-size: 1.4rem;
+    margin-top: 0.9rem;
   }
 }
 
@@ -782,8 +824,29 @@ screen and (max-height: 568px) {
   }
 
   .message-frame {
-    font-size: 1.05rem;
-    max-width: 90%;
+    font-size: 1rem;
+    padding: 0.9rem 1.05rem;
+    max-width: 91%;
+    max-height: 63vh;
+  }
+
+  .love-letter {
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  .love-letter .letter-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .love-letter .letter-paragraph {
+    margin-bottom: 0.65rem;
+  }
+
+  .love-letter .letter-signature {
+    font-size: 1.5rem;
+    margin-top: 1rem;
   }
 }
 
