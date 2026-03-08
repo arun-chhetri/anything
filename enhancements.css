@@ -1,0 +1,429 @@
+/* =============================================
+   MODERN UI ENHANCEMENTS — Birthday Front Page
+   =============================================
+   Drop-in additions only. No existing rules overridden.
+   All selectors here are additive / additive-complementary.
+*/
+
+/* ── Google Font additions ── */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+/* ── Extended CSS variables ── */
+:root {
+    --glow-pink: #ff7882;
+    --glow-rose: #f61f1f;
+    --shimmer-light: rgba(255, 255, 255, 0.55);
+    --glass-bg: rgba(255, 255, 255, 0.18);
+    --glass-border: rgba(255, 255, 255, 0.35);
+    --particle-color: rgba(255, 120, 130, 0.55);
+    --orb1: rgba(255, 105, 135, 0.22);
+    --orb2: rgba(255, 180, 200, 0.18);
+}
+
+/* ─────────────────────────────────────────────
+   1. AMBIENT BACKGROUND ORB GLOW
+   Soft drifting light blobs behind everything
+─────────────────────────────────────────────── */
+#wrapper::before,
+#wrapper::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbDrift 12s ease-in-out infinite alternate;
+    filter: blur(60px);
+}
+
+#wrapper::before {
+    width: 380px;
+    height: 380px;
+    top: -80px;
+    left: -80px;
+    background: var(--orb1);
+    animation-duration: 14s;
+}
+
+#wrapper::after {
+    width: 320px;
+    height: 320px;
+    bottom: -60px;
+    right: -60px;
+    background: var(--orb2);
+    animation-duration: 10s;
+    animation-delay: -5s;
+}
+
+@keyframes orbDrift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(40px, 30px) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   2. FLOATING SPARKLE PARTICLES
+   Pure-CSS generated using pseudo-elements on
+   decoration containers already in HTML
+─────────────────────────────────────────────── */
+.decorate_star::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--glow-pink);
+    box-shadow: 0 0 8px 3px var(--glow-pink);
+    animation: particlePop 2s ease-in-out infinite alternate;
+}
+
+@keyframes particlePop {
+    0% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   3. GLASSMORPHISM PROFILE CARD
+   Add glass sheen on top of the existing box
+─────────────────────────────────────────────── */
+.right .box__account {
+    /* subtle glass card behind the profile image */
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 28px;
+    padding: 20px 24px 36px;
+    border: 1px solid var(--glass-border);
+    box-shadow:
+        0 8px 32px rgba(255, 105, 135, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.right .box__account:hover {
+    box-shadow:
+        0 16px 48px rgba(255, 105, 135, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
+    transform: translateY(-4px);
+}
+
+/* ─────────────────────────────────────────────
+   4. PROFILE IMAGE — NEON + SHIMMER RING
+─────────────────────────────────────────────── */
+.content .right .image {
+    box-shadow:
+        0 0 0 4px #fff,
+        0 0 0 8px var(--glow-pink),
+        0 0 24px 8px rgba(255, 120, 130, 0.45),
+        0 0 48px 16px rgba(255, 120, 130, 0.2);
+    animation: ringPulse 3s ease-in-out infinite;
+    transition: box-shadow 0.4s ease;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 4px #fff,
+            0 0 0 8px var(--glow-pink),
+            0 0 24px 8px rgba(255, 120, 130, 0.45),
+            0 0 48px 16px rgba(255, 120, 130, 0.18);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 4px #fff,
+            0 0 0 10px var(--glow-rose),
+            0 0 36px 14px rgba(246, 31, 31, 0.5),
+            0 0 64px 24px rgba(246, 31, 31, 0.2);
+    }
+}
+
+/* shimmer sweep over the image */
+.content .right .image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(120deg,
+            transparent 20%,
+            var(--shimmer-light) 50%,
+            transparent 80%);
+    background-size: 200% 100%;
+    animation: shimmerSweep 4s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes shimmerSweep {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   5. BUTTON — GRADIENT GLOW + SHIMMER
+─────────────────────────────────────────────── */
+#btn__letter {
+    background: linear-gradient(135deg, #ff7882 0%, #ff4b6e 100%) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow:
+        0 4px 15px rgba(255, 75, 110, 0.5),
+        0 1px 3px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.35s ease !important;
+}
+
+/* Shimmer sweep on the button */
+#btn__letter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent);
+    transform: skewX(-20deg);
+    animation: btnShimmer 3s ease-in-out infinite;
+}
+
+@keyframes btnShimmer {
+    0% {
+        left: -75%;
+    }
+
+    50%,
+    100% {
+        left: 125%;
+    }
+}
+
+#btn__letter:hover {
+    background: linear-gradient(135deg, #ff4b6e 0%, #f61f1f 100%) !important;
+    box-shadow:
+        0 6px 25px rgba(246, 31, 31, 0.55),
+        0 2px 6px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-2px) scale(1.04) !important;
+    letter-spacing: 0.8px;
+}
+
+#btn__letter:active {
+    transform: translateY(0) scale(0.96) !important;
+    box-shadow: 0 2px 8px rgba(246, 31, 31, 0.35) !important;
+}
+
+/* ─────────────────────────────────────────────
+   6. TITLE TEXT — GRADIENT + SUBTLE GLOW
+─────────────────────────────────────────────── */
+.title .happy {
+    /* keep colour but add text-glow */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+}
+
+.title .birthday {
+    filter: drop-shadow(0 0 10px rgba(255, 120, 130, 0.6));
+}
+
+/* stagger each letter with a tiny continuous float */
+.title .happy span,
+.title .birthday span {
+    display: inline-block;
+    animation:
+        txtTranslateY 0.5s var(--t) both,
+        letterFloat 3s calc(var(--t) + 5s) ease-in-out infinite alternate;
+}
+
+@keyframes letterFloat {
+    0% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   7. ROTATING TEXT CIRCLE — NEON RING
+─────────────────────────────────────────────── */
+.text__cricle {
+    box-shadow:
+        0 0 0 2px rgba(255, 120, 130, 0.4),
+        0 0 16px 4px rgba(255, 120, 130, 0.3),
+        inset 0 0 8px rgba(255, 255, 255, 0.25);
+    background: linear-gradient(135deg, #ff8a9a 0%, #ff5e73 100%) !important;
+}
+
+/* Heart inside circle — extra pulse layers */
+.cricle .fa-heart {
+    filter: drop-shadow(0 0 6px rgba(246, 31, 31, 0.8));
+}
+
+/* ─────────────────────────────────────────────
+   8. DATE OF BIRTH BADGE — GLASS PILL
+─────────────────────────────────────────────── */
+.date__of__birth {
+    background: linear-gradient(135deg, rgba(255, 120, 130, 0.85), rgba(255, 75, 110, 0.9)) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 14px rgba(255, 75, 110, 0.35), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.date__of__birth::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background-size: 200% 100%;
+    animation: dateShimmer 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes dateShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   9. NAME BADGE — GLASS PILL
+─────────────────────────────────────────────── */
+.name {
+    background: linear-gradient(135deg, rgba(255, 120, 130, 0.88), rgba(255, 75, 110, 0.95)) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 14px rgba(255, 75, 110, 0.35);
+}
+
+/* ─────────────────────────────────────────────
+   10. DECORATIVE STARS — RAINBOW TINT
+─────────────────────────────────────────────── */
+.decorate_star {
+    background: linear-gradient(135deg, #ff7882, #feca57) !important;
+    box-shadow: 0 0 8px 3px rgba(255, 120, 130, 0.5);
+    filter: drop-shadow(0 0 4px rgba(255, 200, 50, 0.6));
+}
+
+/* ─────────────────────────────────────────────
+   11. WRAPPER GRID — SOFTER, TINTED LINES
+─────────────────────────────────────────────── */
+#wrapper {
+    background-image:
+        linear-gradient(0deg,
+            transparent 24%,
+            rgba(255, 150, 170, 0.35) 25%,
+            rgba(255, 150, 170, 0.35) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 150, 170, 0.35) 75%,
+            rgba(255, 150, 170, 0.35) 76%,
+            transparent 77%,
+            transparent),
+        linear-gradient(90deg,
+            transparent 24%,
+            rgba(255, 150, 170, 0.35) 25%,
+            rgba(255, 150, 170, 0.35) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(255, 150, 170, 0.35) 75%,
+            rgba(255, 150, 170, 0.35) 76%,
+            transparent 77%,
+            transparent) !important;
+}
+
+/* ─────────────────────────────────────────────
+   12. BACKGROUND — RICHER GRADIENT
+─────────────────────────────────────────────── */
+body {
+    background: linear-gradient(160deg, #fde8ec 0%, #feecea 55%, #fce4f0 100%) !important;
+}
+
+/* ─────────────────────────────────────────────
+   13. ENTRANCE ANIMATION FOR THE WHOLE WRAPPER
+─────────────────────────────────────────────── */
+#wrapper {
+    animation: wrapperFadeIn 0.8s ease-out both;
+}
+
+@keyframes wrapperFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ─────────────────────────────────────────────
+   14. FLAG IMAGES — ADD SLIGHT FLOAT
+─────────────────────────────────────────────── */
+.flag__birthday .flag__left {
+    animation: flagFloat 4s 3.5s ease-in-out infinite alternate;
+}
+
+.flag__birthday .flag__right {
+    animation: flagFloat 4s 4s ease-in-out infinite alternate;
+}
+
+@keyframes flagFloat {
+    0% {
+        filter: drop-shadow(0 0 0px transparent);
+    }
+
+    100% {
+        filter: drop-shadow(0 6px 12px rgba(255, 100, 120, 0.35));
+    }
+}
+
+/* ─────────────────────────────────────────────
+   15. MOBILE – keep glass effects subtle
+─────────────────────────────────────────────── */
+@media screen and (max-width: 575px) {
+
+    #wrapper::before,
+    #wrapper::after {
+        width: 200px;
+        height: 200px;
+        filter: blur(40px);
+    }
+
+    .right .box__account {
+        padding: 14px 16px 28px;
+        border-radius: 20px;
+    }
+}

@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Date display animation
-  const datetxt = "26 May 2025"
+  const datetxt = "11 March 2026"
   const charArrDate = datetxt.split("")
   let currentIndex = 0
 
