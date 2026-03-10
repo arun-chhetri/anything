@@ -105,13 +105,17 @@ document.addEventListener("DOMContentLoaded", () => {
       text: `
               <div class="love-letter">
                 <div class="letter-title">Dear You,</div>
-                 <div class="letter-paragraph">I wasn't sure if I'd write this. But here I am, on your birthday, thinking of you like I always do. 🎉�</div>
+                 <div class="letter-paragraph">I wasn't sure if I'd write this. But here I am, on your birthday, thinking of you like I always do. 🎉😊</div>
                  <div class="letter-paragraph">We're not what we used to be. And that still hurts in ways I can't always explain. ❤️❤️</div>
                  <div class="letter-paragraph">But today isn't about the distance. It's about all those moments that made us — that I still carry with me. 🎂✨</div>
                  <div class="letter-paragraph">Wherever you are, whoever you're becoming — I hope the world is gentle with you. You deserve every bit of joy. 💙</div>
-                 <div class="letter-signature">Still yours in memory,<br>Arun Kunwar ��</div>
+                 <div class="letter-signature">Still yours in memory,<br>Arun Kunwar 💕</div>
               </div>
             `,
+    },
+    {
+      isCakeCutting: true,
+      text: "",
     },
   ];
 
@@ -135,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Start new timer to advance slides every 10 seconds
     autoSlideTimer = setInterval(() => {
-      advanceSlide()
+      advanceSlide(true)
     }, 7000) // 10 seconds
   }
 
@@ -163,6 +167,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create confetti effect when showing a new slide
     createConfettiEffect()
 
+    // Special handling for cake slide: pause auto-slideshow to allow interaction
+    if (slides[index].isCakeCutting) {
+      if (autoSlideTimer) {
+        clearInterval(autoSlideTimer)
+        autoSlideTimer = null
+      }
+    }
+
     // If it's the last slide, restart the music for the next loop
     if (index === slides.length - 1) {
       setTimeout(() => {
@@ -177,30 +189,30 @@ document.addEventListener("DOMContentLoaded", () => {
     slideElement.classList.add("slide")
 
     if (slide.class) {
-      slideElement.classList.add(slide.class) // Add the special class for the last slide
+      slideElement.classList.add(slide.class)
+    }
+
+    // Special cake-cutting interactive slide
+    if (slide.isCakeCutting) {
+      slideElement.classList.add("cake-cutting-slide")
+      createCakeCuttingScene(slideElement)
+      return slideElement
     }
 
     if (slide.image) {
       const img = document.createElement("img")
       img.src = slide.image
       img.alt = "Birthday Slide"
-
-      // Add loading attribute for better performance
       img.loading = "lazy"
-
-      // Add error handling for images
       img.onerror = function () {
         this.src =
           "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-size='18' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23999999'%3EImage not found%3C/text%3E%3C/svg%3E"
       }
-
-      // Add double-tap to zoom functionality
       img.addEventListener("dblclick", function (e) {
         if (this.classList.contains("zoomed")) {
           this.classList.remove("zoomed")
         } else {
           this.classList.add("zoomed")
-          // Calculate zoom position based on tap location
           const rect = this.getBoundingClientRect()
           const x = e.clientX - rect.left
           const y = e.clientY - rect.top
@@ -209,23 +221,239 @@ document.addEventListener("DOMContentLoaded", () => {
           this.style.transformOrigin = `${percentX}% ${percentY}%`
         }
       })
-
       slideElement.appendChild(img)
     }
 
     const messageFrame = document.createElement("div")
     messageFrame.classList.add("message-frame", "animated-text")
-
-    // If the slide contains HTML, use it directly
-    if (slide.text.includes("<")) {
+    if (slide.text && slide.text.includes("<")) {
       messageFrame.innerHTML = slide.text
     } else {
-      // Otherwise, prepare for word-by-word animation
       messageFrame.innerHTML = slide.text
     }
-
     slideElement.appendChild(messageFrame)
     return slideElement
+  }
+
+  // ── Interactive Cake Cutting Scene ──────────────────────────
+  function createCakeCuttingScene(container) {
+    container.innerHTML = `
+      <div class="cake-scene" id="cakeScene">
+        <div class="cake-title">🎂 Time to Cut the Cake! 🎂</div>
+        <div class="cake-subtitle">Drag the knife to the cake, or tap the cake to cut it!</div>
+        <div class="cake-stage" id="cakeStage">
+          <div class="cake-wrapper" id="cakeWrapper">
+            <div class="cake" id="cake">
+              <div class="cake-top-layer">
+                <div class="candle" style="--pos:20%"><div class="flame"></div></div>
+                <div class="candle" style="--pos:50%"><div class="flame"></div></div>
+                <div class="candle" style="--pos:80%"><div class="flame"></div></div>
+              </div>
+              <div class="cake-middle-layer"></div>
+              <div class="cake-bottom-layer"></div>
+              <div class="cake-plate"></div>
+            </div>
+            <div class="cake-cut-left" id="cakeCutLeft"></div>
+            <div class="cake-cut-right" id="cakeCutRight"></div>
+          </div>
+          <div class="knife-wrapper" id="knifeWrapper">
+            <div class="knife" id="knife">🔪</div>
+            <div class="knife-hint">← drag me!</div>
+          </div>
+        </div>
+        <div class="cut-message" id="cutMessage">
+          <span class="cut-msg-emoji">🎉</span>
+          <span class="cut-msg-text">Happy Birthday Dear! 🌟</span>
+          <span class="cut-msg-emoji">🥳</span>
+        </div>
+      </div>
+    `
+
+    // Prevent this slide from advancing on click by stopping event bubbles at source
+    container.addEventListener("click", (e) => e.stopPropagation())
+    container.addEventListener("touchend", (e) => e.stopPropagation())
+
+    // Explicitly mark this container so advanceSlide knows to ignore it
+    container.dataset.nclick = "1"
+
+    const cakeStage = container.querySelector("#cakeStage")
+    const cakeWrapper = container.querySelector("#cakeWrapper")
+    const knife = container.querySelector("#knife")
+    const knifeWrapper = container.querySelector("#knifeWrapper")
+    const cake = container.querySelector("#cake")
+    const cakeCutLeft = container.querySelector("#cakeCutLeft")
+    const cakeCutRight = container.querySelector("#cakeCutRight")
+    const cutMessage = container.querySelector("#cutMessage")
+    let cakeCut = false
+
+    // ── Make CAKE draggable ─────────────────────────────────
+    makeDraggable(cakeWrapper, cakeStage)
+
+    // ── Make KNIFE draggable ────────────────────────────────
+    makeDraggable(knifeWrapper, cakeStage)
+
+    // ── Cut on tap/click the cake ──────────
+    const handleCutTrigger = (e) => {
+      e.stopPropagation()
+      if (!cakeCut) cutCake()
+    }
+    cake.addEventListener("click", handleCutTrigger)
+    cake.addEventListener("touchstart", handleCutTrigger, { passive: false })
+
+    // ── Check if knife overlaps cake and trigger cut ────────
+    function checkKnifeOnCake() {
+      if (cakeCut) return
+      const kr = knifeWrapper.getBoundingClientRect()
+      const cr = cake.getBoundingClientRect()
+
+      // Check for overlap between knife and cake
+      const overlapX = kr.left < cr.right && kr.right > cr.left
+      const overlapY = kr.top < cr.bottom && kr.bottom > cr.top
+
+      if (overlapX && overlapY) {
+        cutCake()
+      }
+    }
+
+    // Override makeDraggable onMove for knife to check overlap
+    knifeWrapper._onMove = checkKnifeOnCake
+
+    function cutCake() {
+      if (cakeCut) return
+      cakeCut = true
+
+      // If we are on the cake slide, the autoSlideTimer should already be cleared by showSlide.
+      // But we set a timeout now to resume/loop after 10 seconds of celebration.
+      setTimeout(() => {
+        // If we are still on the last slide, loop back to the beginning
+        if (currentSlideIndex === slides.length - 1) {
+          currentSlideIndex = -1 // Set to -1 so advanceSlide(true) makes it 0
+          advanceSlide(true)
+          startAutoSlideshow()
+        }
+      }, 10000)
+
+      // Animate knife slash
+      knife.classList.add("knife-slash")
+
+      // Split cake after short delay
+      setTimeout(() => {
+        cake.classList.add("cake-hidden")
+        cakeCutLeft.classList.add("cake-slice-left")
+        cakeCutRight.classList.add("cake-slice-right")
+
+        // Show message
+        setTimeout(() => {
+          cutMessage.classList.add("cut-message-show")
+          createBigConfetti()
+        }, 400)
+      }, 350)
+    }
+
+    function createBigConfetti() {
+      const confContainer = document.getElementById("confetti-container")
+      if (!confContainer) return
+      const colors = ["#ff6b6b", "#ffd700", "#ff69b4", "#00e5ff", "#7fff00", "#ff8c00", "#da70d6"]
+      for (let i = 0; i < 180; i++) {
+        const c = document.createElement("div")
+        c.className = "confetti"
+        c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+        c.style.width = `${Math.random() * 12 + 6}px`
+        c.style.height = `${Math.random() * 12 + 6}px`
+        c.style.left = `${Math.random() * window.innerWidth}px`
+        c.style.top = `-20px`
+        c.style.transform = `rotate(${Math.random() * 360}deg)`
+        c.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px"
+        const dur = Math.random() * 2.5 + 1.5
+        c.style.animationDuration = `${dur}s`
+        confContainer.appendChild(c)
+        setTimeout(() => c.remove(), dur * 1000)
+      }
+    }
+  }
+
+  // ── Generic draggable maker ──────────────────────────────────
+  function makeDraggable(el, boundary) {
+    let startX, startY, origLeft, origTop, dragging = false
+
+    function getPos(e) {
+      return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY }
+        : { x: e.clientX, y: e.clientY }
+    }
+
+    function onStart(e) {
+      // Very important: stop bubbling so the slideshow doesn't skip
+      e.stopPropagation()
+
+      const pos = getPos(e)
+      startX = pos.x
+      startY = pos.y
+
+      const bRect = boundary.getBoundingClientRect()
+      const rect = el.getBoundingClientRect()
+
+      origLeft = rect.left - bRect.left
+      origTop = rect.top - bRect.top
+
+      el.style.position = "absolute"
+      el.style.left = origLeft + "px"
+      el.style.top = origTop + "px"
+      el.style.margin = "0"
+
+      dragging = true
+      el.classList.add("dragging")
+
+      // Add move/end listeners to document only while dragging
+      document.addEventListener("mousemove", onMove)
+      document.addEventListener("touchmove", onMove, { passive: false })
+      document.addEventListener("mouseup", onEnd)
+      document.addEventListener("touchend", onEnd)
+    }
+
+    function onMove(e) {
+      if (!dragging) return
+
+      // Stop bubbling and prevent scrolling/advancing
+      e.stopPropagation()
+      if (e.cancelable) e.preventDefault()
+
+      const pos = getPos(e)
+      const dx = pos.x - startX
+      const dy = pos.y - startY
+
+      let newLeft = origLeft + dx
+      let newTop = origTop + dy
+
+      // Clamp within boundary
+      const bRect = boundary.getBoundingClientRect()
+      const eRect = el.getBoundingClientRect()
+
+      newLeft = Math.max(0, Math.min(newLeft, bRect.width - eRect.width))
+      newTop = Math.max(0, Math.min(newTop, bRect.height - eRect.height))
+
+      el.style.left = newLeft + "px"
+      el.style.top = newTop + "px"
+
+      if (el._onMove) el._onMove()
+    }
+
+    function onEnd(e) {
+      if (!dragging) return
+
+      if (e) e.stopPropagation()
+
+      dragging = false
+      el.classList.remove("dragging")
+
+      // Clean up listeners
+      document.removeEventListener("mousemove", onMove)
+      document.removeEventListener("touchmove", onMove)
+      document.removeEventListener("mouseup", onEnd)
+      document.removeEventListener("touchend", onEnd)
+    }
+
+    el.addEventListener("mousedown", onStart)
+    el.addEventListener("touchstart", onStart, { passive: false })
   }
 
   // Function to animate text word by word
@@ -310,17 +538,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Handle both click and touch events for iOS
-  presentationView.addEventListener("click", advanceSlide)
+  // Handle both click and touch events for navigation
+  presentationView.addEventListener("click", (e) => {
+    // DO NOT advance if clicking inside the interactive cake slide
+    if (e.target.closest(".cake-cutting-slide")) {
+      return
+    }
+
+    // Ignore clicks if we are on the interactive cake slide
+    if (slides[currentSlideIndex] && slides[currentSlideIndex].isCakeCutting) {
+      return
+    }
+    advanceSlide()
+  })
+
   presentationView.addEventListener("touchend", (e) => {
+    // DO NOT advance if touching inside the interactive cake slide
+    if (e.target.closest(".cake-cutting-slide")) {
+      return
+    }
+
+    // Ignore touches if we are on the interactive cake slide
+    if (slides[currentSlideIndex] && slides[currentSlideIndex].isCakeCutting) {
+      return
+    }
+
     // Only advance if the target is not an image with zoomed class
     if (!e.target.classList || !e.target.classList.contains("zoomed")) {
-      e.preventDefault() // Prevent default behavior
       advanceSlide()
     }
   })
 
-  function advanceSlide() {
+  function advanceSlide(force = false) {
+    // Check if the current slide is the interactive cake slide
+    if (!force && slides[currentSlideIndex] && slides[currentSlideIndex].isCakeCutting) {
+      return // Ignore manual advancement on interactive slide
+    }
+
     currentSlideIndex++
     if (currentSlideIndex < slides.length) {
       showSlide(currentSlideIndex)

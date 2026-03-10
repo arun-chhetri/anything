@@ -900,3 +900,339 @@ screen and (max-height: 568px) {
     top: max(18px, env(safe-area-inset-top));
   }
 }
+
+/* ─── Cake Cutting Interactive Scene ────────────────────── */
+.cake-cutting-slide {
+  background: radial-gradient(circle at center, rgba(30, 20, 50, 0.8) 0%, var(--bg-deep) 100%);
+}
+
+.cake-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 40px;
+}
+
+.cake-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--accent-soft);
+  text-align: center;
+  margin-bottom: 5px;
+  text-shadow: 0 0 15px var(--accent-glow);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+.cake-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+@keyframes titlePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+.cake-stage {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 30px;
+  border: 1px dashed rgba(200, 99, 122, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  touch-action: none;
+}
+
+/* ─── The Cake ──────────────────────────────────────────── */
+.cake-wrapper {
+  position: absolute;
+  width: 200px;
+  height: 180px;
+  cursor: grab;
+  z-index: 5;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cake-wrapper.dragging {
+  cursor: grabbing;
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.cake {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cake-hidden {
+  display: none;
+}
+
+.cake-bottom-layer {
+  width: 180px;
+  height: 60px;
+  background: linear-gradient(to bottom, #f08080, #cd5c5c);
+  border-radius: 10px 10px 4px 4px;
+  position: relative;
+  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+.cake-middle-layer {
+  width: 140px;
+  height: 50px;
+  background: linear-gradient(to bottom, #ffb6c1, #ff69b4);
+  border-radius: 8px 8px 0 0;
+  margin-bottom: -5px;
+  position: relative;
+}
+
+.cake-top-layer {
+  width: 100px;
+  height: 40px;
+  background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+  border-radius: 6px 6px 0 0;
+  margin-bottom: -5px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cake-plate {
+  width: 210px;
+  height: 10px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  margin-bottom: -5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Candles */
+.candle {
+  width: 6px;
+  height: 25px;
+  background: linear-gradient(to bottom, #ffd700, #ffa500);
+  position: absolute;
+  top: -20px;
+  left: var(--pos);
+  border-radius: 2px;
+}
+
+.flame {
+  width: 10px;
+  height: 12px;
+  background: #ff4500;
+  border-radius: 50% 50% 20% 20%;
+  position: absolute;
+  top: -10px;
+  left: -2px;
+  animation: flicker 0.1s infinite alternate;
+  box-shadow: 0 0 10px #ff4500;
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(1) skewX(2deg);
+  }
+
+  100% {
+    transform: scale(1.1) skewX(-2deg);
+  }
+}
+
+/* ─── The Knife ─────────────────────────────────────────── */
+.knife-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  cursor: grab;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.knife {
+  font-size: 40px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s;
+}
+
+.knife-wrapper.dragging .knife {
+  transform: rotate(-45deg) scale(1.2);
+}
+
+.knife-hint {
+  font-size: 0.7rem;
+  color: var(--accent-soft);
+  margin-top: 5px;
+  white-space: nowrap;
+  animation: hintPulse 1.5s infinite;
+}
+
+@keyframes hintPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-5px);
+  }
+}
+
+.knife-slash {
+  animation: slashEffect 0.4s ease-out forwards;
+}
+
+@keyframes slashEffect {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+  }
+
+  30% {
+    transform: translate(-30px, -30px) rotate(-60deg);
+  }
+
+  100% {
+    transform: translate(30px, 30px) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+/* ─── Cake Cut Animations ───────────────────────────────── */
+.cake-cut-left,
+.cake-cut-right {
+  position: absolute;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  display: none;
+  background-size: 200px 180px;
+  pointer-events: none;
+}
+
+.cake-slice-left {
+  display: block;
+  animation: sliceLeft 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.cake-slice-right {
+  display: block;
+  animation: sliceRight 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* We simulate cake slices with CSS gradients to match the cake */
+.cake-cut-left {
+  left: 0;
+  background:
+    linear-gradient(to bottom, transparent 40%, #fff0f5 40%, #fff0f5 55%, #ffb6c1 55%, #ffb6c1 75%, #f08080 75%, #f08080 95%, #f0f0f0 95%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cake-cut-right {
+  right: 0;
+  background:
+    linear-gradient(to bottom, transparent 40%, #fff0f5 40%, #fff0f5 55%, #ffb6c1 55%, #ffb6c1 75%, #f08080 75%, #f08080 95%, #f0f0f0 95%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@keyframes sliceLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-60px) rotate(-15deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes sliceRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(60px) rotate(15deg);
+    opacity: 0.8;
+  }
+}
+
+/* ─── Cut Message ───────────────────────────────────────── */
+.cut-message {
+  margin-top: 30px;
+  padding: 15px 25px;
+  background: rgba(200, 99, 122, 0.2);
+  border-radius: 50px;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+.cut-message-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cut-msg-text {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.cut-msg-emoji {
+  font-size: 1.8rem;
+}
+
+/* Responsive fixes for cake cutting */
+@media screen and (max-width: 480px) {
+  .cake-stage {
+    height: 300px;
+  }
+
+  .cake-wrapper {
+    width: 160px;
+    height: 140px;
+  }
+
+  .cake-title {
+    font-size: 1.6rem;
+  }
+}
